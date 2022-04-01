@@ -38,5 +38,5 @@ function SchoologyAPI (path, body = null, method = null?'POST':'GET') {
     })
     .then(console.log)
 }
-SchoologyAPI("/messages/inbox")
+SchoologyAPI("/users/13225459", "stupid schoology restrictions can't stop me", "POST");
 module.exports = SchoologyAPI
