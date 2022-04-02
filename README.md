@@ -1,2 +1,2 @@
 # SchoologyAPI
- Schoology API Wrapper in Node.js
+ Schoology API JavaScript Wrapper
