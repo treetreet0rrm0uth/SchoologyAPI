@@ -1,42 +1,42 @@
-const OAuth = require('oauth-1.0a')
-const crypto = require('crypto')
-const request = require('request')
+const OAuth = require("oauth-1.0a")
+const crypto = require("crypto")
+const request = require("request")
+let oauth
 
-const base = "https://api.schoology.com/v1"
-const key = "31d4034b0ff433c448cb5d4615e1f81f0623d1211"
-const secret = "c459f83102c46712714e8e758ae1c9ed"
-
-const oauth = OAuth({
-    consumer: {key, secret},
-    signature_method: "HMAC-SHA1",
-    hash_function(base_string, key) {
+class SchoologyAPI {
+  constructor(key, secret) {
+    oauth = OAuth({
+      consumer: {key, secret},
+      signature_method: "HMAC-SHA1",
+      hash_function(base_string, key) {
         return crypto
-            .createHmac("sha1", key)
-            .update(base_string)
-            .digest('base64')
-    }
-})
+          .createHmac("sha1", key)
+          .update(base_string)
+          .digest("base64")
+      }
+    })
+  }
 
-function SchoologyAPI (path, body = null, method = null?'POST':'GET') {
-    const url = base + path
+  request(path, body = null, method = null?"POST":"GET") {
+    const url = "https://api.schoology.com/v1" + path
     return new Promise((resolve, reject) => {
       request({
         url,
         method,
         body: body && JSON.stringify(body),
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+          "Accept": "application/json",
+          "Content-Type": "application/json",
           ...oauth.toHeader(oauth.authorize({ url, method }))
         }
-      }, (err, { statusCode }, body) => {
-        if(err) {
+      }, (error, {statusCode}, body) => {
+        if(error) {
         }else{
           resolve(JSON.parse(body))
         }
       })
-    })
-    .then(console.log)
+    }).then(console.log)
+  }
 }
-SchoologyAPI("/users/13225459", "stupid schoology restrictions can't stop me", "POST");
+
 module.exports = SchoologyAPI
