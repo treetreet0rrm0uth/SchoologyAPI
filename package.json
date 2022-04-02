@@ -1,7 +1,7 @@
 {
   "name": "schoologyapi",
   "version": "1.0.0",
-  "description": "Schoology API Wrapper in Node.js",
+  "description": "SchoologyAPI Wrapper",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
