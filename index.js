@@ -31,7 +31,8 @@ class SchoologyAPI {
         }
       }, (error, {statusCode}, body) => {
         if(error) {
-        }else{
+          console.log(error)
+        }else {
           resolve(JSON.parse(body))
         }
       })
