@@ -6,7 +6,7 @@ let oauth
 class SchoologyAPI {
   constructor(key, secret) {
     oauth = OAuth({
-      consumer: {key, secret},
+      consumer: { key, secret },
       signature_method: "HMAC-SHA1",
       hash_function(base_string, key) {
         return crypto
@@ -17,7 +17,7 @@ class SchoologyAPI {
     })
   }
 
-  request(path, body = null, method = null?"POST":"GET") {
+  request(path, body = null, method = null ? "POST" : "GET") {
     const url = "https://api.schoology.com/v1" + path
     return new Promise((resolve, reject) => {
       request({
@@ -29,14 +29,37 @@ class SchoologyAPI {
           "Content-Type": "application/json",
           ...oauth.toHeader(oauth.authorize({ url, method }))
         }
-      }, (error, {statusCode}, body) => {
-        if(error) {
+      }, (error, { statusCode }, body) => {
+        if (error) {
           console.log(error)
-        }else {
+        } else {
           resolve(JSON.parse(body))
         }
       })
     }).then(console.log)
+  }
+
+  createRequestToken(body = null, method = null ? "POST" : "GET") {
+    const url = "https://api.schoology.com/v1/oauth/request_token"
+    return new Promise((resolve, reject) => {
+      request({
+        url,
+        method,
+        body: body && JSON.stringify(body),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          ...oauth.toHeader(oauth.authorize({ url, method }))
+        }
+      }, (error, { statusCode }, body) => {
+        if (error) {
+          console.log(error)
+        }
+        else {
+          console.log(body)
+        }
+      })
+    })
   }
 }
 
