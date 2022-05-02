@@ -29,14 +29,14 @@ class SchoologyAPI {
           "Content-Type": "application/json",
           ...oauth.toHeader(oauth.authorize({ url, method }))
         }
-      }, (error, { statusCode }, body) => {
-        if (error) {
-          console.log(error)
+      }, (err, { statusCode }, body) => {
+        if (err) {
+          reject(err)
         } else {
           resolve(JSON.parse(body))
         }
       })
-    }).then(console.log)
+    })
   }
 
   createRequestToken(body = null, method = null ? "POST" : "GET") {
@@ -51,12 +51,35 @@ class SchoologyAPI {
           "Content-Type": "application/json",
           ...oauth.toHeader(oauth.authorize({ url, method }))
         }
-      }, (error, { statusCode }, body) => {
-        if (error) {
-          console.log(error)
+      }, (err, { statusCode }, body) => {
+        if (err) {
+          reject(err)
         }
         else {
-          console.log(body)
+          resolve(body)
+        }
+      })
+    })
+  }
+
+  getAccessToken(body = null, method = null ? "POST" : "GET") {
+    const url = "https://api.schoology.com/v1/oauth/access_token"
+    return new Promise((resolve, reject) => {
+      request({
+        url,
+        method,
+        body: body && JSON.stringify(body),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          ...oauth.toHeader(oauth.authorize({ url, method }))
+        }
+      }, (err, { statusCode }, body) => {
+        if (err) {
+          reject(err)
+        }
+        else {
+          resolve(body)
         }
       })
     })
