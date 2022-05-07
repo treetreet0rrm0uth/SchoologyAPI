@@ -2,6 +2,9 @@ const OAuth = require("oauth-1.0a")
 const crypto = require("crypto")
 const request = require("request")
 let oauth
+let pooauth
+let key
+let secret
 
 class SchoologyAPI {
   constructor(key, secret) {
@@ -62,8 +65,24 @@ class SchoologyAPI {
     })
   }
 
-  getAccessToken(body = null, method = null ? "POST" : "GET") {
+  getAccessToken(requestToken, body = null, method = "POST") {
     const url = "https://api.schoology.com/v1/oauth/access_token"
+    const oauthKey = requestToken.slice(12, 53)
+    const oauthSecret = requestToken.slice(73, 105)
+    const token = {
+      key: oauthKey,
+      secret: oauthSecret,
+    }
+    pooauth = OAuth({
+      consumer: { key, secret },
+      signature_method: "HMAC-SHA1",
+      hash_function(base_string, key) {
+        return crypto
+          .createHmac("sha1", key)
+          .update(base_string)
+          .digest("base64")
+      }
+    })
     return new Promise((resolve, reject) => {
       request({
         url,
@@ -72,7 +91,7 @@ class SchoologyAPI {
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
-          ...oauth.toHeader(oauth.authorize({ url, method }))
+          ...pooauth.toHeader(pooauth.authorize({ url, method }))
         }
       }, (err, { statusCode }, body) => {
         if (err) {

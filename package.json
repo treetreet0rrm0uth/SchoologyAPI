@@ -1,6 +1,6 @@
 {
   "name": "schoologyapi",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Schoology API JavaScript Wrapper",
   "main": "index.js",
   "scripts": {},
