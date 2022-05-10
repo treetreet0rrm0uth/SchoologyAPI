@@ -1,6 +1,7 @@
 const OAuth = require("oauth-1.0a")
 const crypto = require("crypto")
 const request = require("request")
+
 let oauth
 let pooauth
 let key
@@ -102,6 +103,11 @@ class SchoologyAPI {
         }
       })
     })
+  }
+  parseRequestToken(input) {
+    const finalKey = input.slice(12, 53)
+    const finalSecret = input.slice(73, 105)
+    return { finalKey, finalSecret }
   }
 }
 
