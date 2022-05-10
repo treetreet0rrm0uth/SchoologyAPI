@@ -11,6 +11,7 @@ class SchoologyAPI {
   constructor(key, secret) {
     oauth = OAuth({
       consumer: { key, secret },
+      token: { key, secret },
       signature_method: "HMAC-SHA1",
       hash_function(base_string, key) {
         return crypto
