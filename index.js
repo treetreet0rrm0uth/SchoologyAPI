@@ -1,6 +1,6 @@
-const OAuth = require("oauth-1.0a")
-const crypto = require("crypto")
-const request = require("request")
+import OAuth from "oauth-1.0a"
+import crypto from "crypto"
+import request from "request"
 
 let oauth
 let pooauth
@@ -111,6 +111,6 @@ class SchoologyAPI {
   }
 }
 
-module.exports = SchoologyAPI
+export default SchoologyAPI
 
 //tree tree t0rr m0uth

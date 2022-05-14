@@ -1,9 +1,10 @@
 {
   "name": "schoologyapi",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Schoology API JavaScript Wrapper",
   "main": "index.js",
   "scripts": {},
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/treetreet0rrm0uth/SchoologyAPI.git"
