@@ -14,7 +14,7 @@
  
  ### Import the client
  ```javascript
- const SchoologyAPI = require("schoologyapi")
+ import SchoologyAPI from "schoologyapi"
  ```
  
  ### Instantiate the client
