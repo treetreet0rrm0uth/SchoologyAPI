@@ -7,7 +7,7 @@ class SchoologyAPI {
     this.secret = secret
   }
 
-  request(path, tokenKey, tokenSecret) {
+  request(path) {
     const key = this.key
     const secret = this.secret
     const url = "https://api.schoology.com/v1" + path
@@ -15,9 +15,7 @@ class SchoologyAPI {
       request.get(url, {
         oauth: {
           consumer_key: key,
-          consumer_secret: secret,
-          token: tokenKey,
-          token_secret: tokenSecret
+          consumer_secret: secret
         }
       }, function (err, res, body) {
         resolve(JSON.parse(body))
