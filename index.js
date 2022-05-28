@@ -18,7 +18,7 @@ class SchoologyAPI {
           consumer_secret: secret
         }
       }, function (err, res, body) {
-        resolve(JSON.parse(body))
+        resolve(body)
       })
     })
   }
@@ -81,7 +81,7 @@ class SchoologyAPI {
           token_secret: finalSecret
         }
       }, function (err, res, body) {
-        resolve(JSON.parse(body))
+        resolve(body)
       })
     })
   }
