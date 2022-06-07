@@ -44,17 +44,13 @@ class SchoologyAPI {
     const secret = this.secret
     const url = "https://api.schoology.com/v1/oauth/access_token"
     const parsedRequestToken = this.parseRequestToken(requestToken)
-    const token = {
-      key: parsedRequestToken.finalKey,
-      secret: parsedRequestToken.finalSecret
-    }
     return new Promise((resolve, reject) => {
       request.get(url, {
         oauth: {
           consumer_key: key,
           consumer_secret: secret,
-          token: token.key,
-          token_secret: token.secret
+          token: parsedRequestToken.finalSecret,
+          token_secret: parsedRequestToken.finalSecret
         }
       }, function (err, res, body) {
         resolve(body)
@@ -66,6 +62,24 @@ class SchoologyAPI {
     const finalKey = input.slice(12, 53)
     const finalSecret = input.slice(73, 105)
     return { finalKey, finalSecret }
+  }
+
+  clientRequest(path, token, tokenSecret) {
+    const key = this.key
+    const secret = this.secret
+    const url = "https://api.schoology.com/v1" + path
+    return new Promise((resolve, reject) => {
+      request.get(url, {
+        oauth: {
+          consumer_key: key,
+          consumer_secret: secret,
+          token: token,
+          token_secret: tokenSecret
+        }
+      }, function (err, res, body) {
+        resolve(body)
+      })
+    })
   }
 }
 
