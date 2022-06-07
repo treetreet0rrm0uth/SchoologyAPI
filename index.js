@@ -67,24 +67,6 @@ class SchoologyAPI {
     const finalSecret = input.slice(73, 105)
     return { finalKey, finalSecret }
   }
-
-  clientRequest(path, finalToken, finalSecret) {
-    const key = this.key
-    const secret = this.secret
-    const url = "https://api.schoology.com/v1" + path
-    return new Promise((resolve, reject) => {
-      request.get(url, {
-        oauth: {
-          consumer_key: key,
-          consumer_secret: secret,
-          token: finalToken,
-          token_secret: finalSecret
-        }
-      }, function (err, res, body) {
-        resolve(body)
-      })
-    })
-  }
 }
 
 module.exports = SchoologyAPI
