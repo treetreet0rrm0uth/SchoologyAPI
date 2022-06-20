@@ -6,6 +6,8 @@
     #### Replace "yourdistrict" with the district you sign in with. 
     #### (i.e. if i sign in with https://amogus.schoology.com, i would go to https://amogus.schoology.com/api)
  
+ ## Keep in mind that these functions were made to be used in asynchronous functions.
+ 
  ## How to use:
  ### Install the wrapper from NPM
  ```
@@ -26,20 +28,25 @@
  ### Make requests!
  ##### Replace "your request" with your Schoology request. Find request URIs from https://developers.schoology.com/api-documentation/rest-api-v1
  ```javascript
- client.request("your request")
+ await client.request("your request")
  ```
  
  ## Other Options
  
  ### Create a request token
  ```javascript
- client.createRequestToken()
+ await client.createRequestToken()
  ```
  
  ### Get an access token from a request token
  ##### replace "requestToken" with a valid request token. 
  ```javascript
- client.getAccessToken("requestToken")
+ await client.getAccessToken(requestToken)
+ ```
+ 
+ ### Request on the behalf of another user
+ ```javascript
+ await client.clientRequest(request, accessToken)
  ```
  
  ### Extract the key and secret from a request token
