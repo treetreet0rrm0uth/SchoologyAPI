@@ -1,4 +1,3 @@
-const axios = require("axios")
 const request = require("request")
 
 class SchoologyAPI {
@@ -23,7 +22,7 @@ class SchoologyAPI {
     })
   }
 
-  createRequestToken(body = null, method = "GET") {
+  createRequestToken() {
     const key = this.key
     const secret = this.secret
     const url = "https://api.schoology.com/v1/oauth/request_token"
